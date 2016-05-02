@@ -14,14 +14,14 @@ public class ToolKit{
 	}
 
 	public int getNumberWordsOfPhase(String phraseTwo) {
-    	phraseTwo += " ";
-    	int wordsNumber = 0;
-    	for (int i = 0; i < phraseTwo.length(); i++) {
-        	if (phraseTwo.charAt(i) == ' ') {
-            	wordsNumber++;
-        	}
-    	}	
-    	return wordsNumber;
+    		phraseTwo += " ";
+    		int wordsNumber = 0;
+    		for (int i = 0; i < phraseTwo.length(); i++) {
+        		if (phraseTwo.charAt(i) == ' ') {
+            		wordsNumber++;
+        		}
+    		}	
+    		return wordsNumber;
 	}
 
 	public boolean getNumberBinary(String number){
