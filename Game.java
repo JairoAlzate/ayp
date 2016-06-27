@@ -5,13 +5,13 @@ public class Game{
 	private int numberPc;
 	private int numberUser;
 	private String word;
-	private String originalWord;
-
-	public static final char CHAR_HIDDEN = '_';
+	public static String WINNER = "GANADOR";
+	private int pos;
+	private boolean endGame;
 
 	public Game(String word){
-		this.originalWord = word;
-		this.word = word;
+		pos = 0;
+		endGame = false;
 	}
 
 	public void generateNumberPc(){
@@ -26,45 +26,37 @@ public class Game{
 		generateNumberPc();
 		generateNumberUser();
 		if(numberPc > numberUser){
-			System.out.println("Gano Pc.");
-			hiddenChar();
+			if (! (pos == 0)){
+				pos--;
+				System.out.println("Punto para Pc.");
+				System.out.println(numberPc+ " > "+ numberUser);
+				word = WINNER.substring(0,pos);
+				System.out.println(word);
+			}
 		} else if(numberUser > numberPc){
-			System.out.println("Gano Usuario.");
-			unHiddenChar();
+			pos++;
+			if (pos > WINNER.length()){
+				word = WINNER;
+				endGame = true;
+				System.out.println("*****GANADOR EL USUARIO*****");
+			}else{
+				System.out.println("Punto para Usuario.");
+				System.out.println(numberPc+ " < "+ numberUser);
+				word = WINNER.substring(0,pos);
+				System.out.println(word);
+			}
 		}else{
 			System.out.println("Empate.");
+			System.out.println(numberPc+ " = "+ numberUser);
+			System.out.println(word);
 		}
-	}
-
-	public void hiddenChar(){
-		int position = (int) (Math.random() * word.length());
-		String newWord = "";
-		for (int i = 0; i < word.length(); i++) {
-			if (i == position) {
-				newWord += CHAR_HIDDEN;
-			}else{
-				newWord += word.charAt(i);
-			}
-		}
-		word = newWord;
-		System.out.println(word);
-	}
-
-	public void unHiddenChar(){
-		String newWord = "";
-		for (int i = 0; i < word.length(); i++) {
-			if (i == '_') {
-				newWord += originalWord.charAt(i);
-			}else{
-				newWord += word.charAt(i);
-			}
-		}
-		word = newWord;
-		System.out.println(word);
 	}
 
 	public static void main(String[] args) {
 		Game t = new Game("Ganador");
-		t.compareNumbers();
+		while (!t.endGame){
+			t.compareNumbers();
+		}
+		
 	}
 }
